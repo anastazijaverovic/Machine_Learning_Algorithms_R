@@ -29,3 +29,18 @@ classifier = glm(formula = Purchased ~ .,
                  data = training_set)
 
 # Predicting the Test set results
+
+# predicted probabilities vector
+prob_pred = predict(classifier, type = 'response', newdata = test_set[-3])
+
+# predicted values vector
+y_pred = ifelse(prob_pred > 0.5, 1, 0)
+
+# Making the Confusion Matrix
+
+cm = table(test_set[, 3], y_pred)
+
+# Visualising Training set results
+
+
+
