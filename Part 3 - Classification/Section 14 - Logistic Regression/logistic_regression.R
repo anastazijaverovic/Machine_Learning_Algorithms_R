@@ -42,5 +42,29 @@ cm = table(test_set[, 3], y_pred)
 
 # Visualising Training set results
 
+set = training_set
+
+expand.grid('Age' = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01),
+            'EstimatedSalary' = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01))%>%
+  mutate(prob_set=predict(classifier, type = 'response', newdata = .),
+         y_grid = ifelse(prob_set > 0.5, 1, 0))%>%
+  
+  ggplot()+
+  geom_point(aes(x=Age, y=EstimatedSalary, color=ifelse(y_grid == 1,y_grid-0.2, -y_grid-0.2)))+
+  geom_point(data=training_set, aes(x=Age, y=EstimatedSalary,colour=as.numeric(Purchased)+0.5))
+
+
+# Visualising Test set results
+
+set = test_set
+
+expand.grid('Age' = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01),#taking the range of the training set observation points for Age and Salary
+            'EstimatedSalary' = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01))%>%
+  mutate(prob_set=predict(classifier, type = 'response', newdata = .),#predicting the result of the graph using the classifier
+         y_grid = ifelse(prob_set > 0.5, 1, 0))%>%#transforming the predictions
+  
+  ggplot()+
+  geom_point(aes(x=Age, y=EstimatedSalary, color=ifelse(y_grid == 1,y_grid-0.2, -y_grid-0.2)))+
+  geom_point(data=test_set, aes(x=Age, y=EstimatedSalary,colour=as.numeric(Purchased)+0.5))
 
 
