@@ -63,6 +63,7 @@ X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
 grid_set = expand.grid('Age' = X1,
                        'EstimatedSalary' = X2)
 
+#usually predict() function
 y_grid = knn(train = training_set[, -3],
              test = grid_set,
              cl = training_set[, 3],
