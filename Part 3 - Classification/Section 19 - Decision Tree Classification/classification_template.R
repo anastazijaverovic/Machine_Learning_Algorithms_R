@@ -1,4 +1,4 @@
-# Kernel Support Vector Machine
+# Classification template
 
 # Importing the dataset
 dataset = read.csv('Social_Network_Ads.csv')
@@ -20,12 +20,7 @@ training_set[-3] = scale(training_set[-3])
 test_set[-3] = scale(test_set[-3])
 
 # Fitting classifier to the Training set
-library(e1071)
-
-classifier = svm(formula = Purchased ~ .,
-                 data = training_set,
-                 type = 'C-classification',
-                 kernel = 'radial')
+# Create your classifier here
 
 # Predicting the Test set results
 y_pred = predict(classifier, newdata = test_set[-3])
@@ -45,7 +40,7 @@ grid_set = expand.grid('Age' = X1,
 y_grid = predict(classifier, newdata = grid_set)
 
 plot (set[, -3],
-      main = 'Kernel SVM (Training set)',
+      main = 'K-NN (Training set)',
       xlib = 'Age',
       ylib = 'Estimated Salary',
       xlim = range(X1),
@@ -67,7 +62,7 @@ grid_set = expand.grid('Age' = X1,
 y_grid = predict(classifier, newdata = grid_set)
 
 plot (set[, -3],
-      main = 'Kernel SVM (Test set)',
+      main = 'K-NN (Test set)',
       xlib = 'Age',
       ylib = 'Estimated Salary',
       xlim = range(X1),

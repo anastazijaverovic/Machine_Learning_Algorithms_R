@@ -1,4 +1,4 @@
-# Kernel Support Vector Machine
+# Decision Tree Classification
 
 # Importing the dataset
 dataset = read.csv('Social_Network_Ads.csv')
@@ -20,15 +20,14 @@ training_set[-3] = scale(training_set[-3])
 test_set[-3] = scale(test_set[-3])
 
 # Fitting classifier to the Training set
-library(e1071)
+library(rpart)
 
-classifier = svm(formula = Purchased ~ .,
-                 data = training_set,
-                 type = 'C-classification',
-                 kernel = 'radial')
+#option + N = ~
+classifier = rpart(formula = Purchased ~ .,
+                   data = training_set)
 
 # Predicting the Test set results
-y_pred = predict(classifier, newdata = test_set[-3])
+y_pred = predict(classifier, newdata = test_set[-3],type = 'class')
 
 # Making the Confusion Matrix
 cm = table(test_set[, 3], y_pred)
@@ -42,10 +41,10 @@ X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
 grid_set = expand.grid('Age' = X1,
                        'EstimatedSalary' = X2)
 
-y_grid = predict(classifier, newdata = grid_set)
+y_grid = predict(classifier, newdata = grid_set,type = 'class')
 
 plot (set[, -3],
-      main = 'Kernel SVM (Training set)',
+      main = 'Decision Tree (Training set)',
       xlib = 'Age',
       ylib = 'Estimated Salary',
       xlim = range(X1),
@@ -64,10 +63,10 @@ X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
 grid_set = expand.grid('Age' = X1,
                        'EstimatedSalary' = X2)
 
-y_grid = predict(classifier, newdata = grid_set)
+y_grid = predict(classifier, newdata = grid_set,type = 'class')
 
 plot (set[, -3],
-      main = 'Kernel SVM (Test set)',
+      main = 'Decision Tree (Test set)',
       xlib = 'Age',
       ylib = 'Estimated Salary',
       xlim = range(X1),
