@@ -1,10 +1,10 @@
 # Machine_Learning_exercises
 
-Repository containing exercises on Machine Learning algorithms. Organised into parts and programmed in R.
+This is repository made to dive into Machine Learning. After going through theoretical definitions of algorithms, every algorithm is implemented using R and then changed in order to make a coding template. Repository contains extensive exercises on Machine Learning algorithms. Organised into logical parts and programmed in R.
 
-Organised the whole project into 10 parts - in order to understand every aspect of Machine Learning.
+The whole project is organised into 10 parts - in order to understand every aspect of Machine Learning:
 
-Part 1 - Data Preprocessing,
+Part 1 - Data Preprocessing (+ made a template to use in all the other steps of ML),
 
 Part 2 - Regression (Simple Linear Regression, Multiple Linear Regression, Polynomial Regression, SVR, Decision Tree Regression, Random Forest Regression),
 
@@ -23,3 +23,5 @@ Part 8 - Deep Learning (Artificial Neural Networks, Convolutional Neural Network
 Part 9 - Dimensionality Reduction (PCA, LDA, Kernel PCA), 
 
 Part 10 - Model Selection & Boosting (k-fold Cross Validation, Parameter Tuning, Grid Search, XGBoost)
+
+
