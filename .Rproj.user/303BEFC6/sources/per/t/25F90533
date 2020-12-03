@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1605377458703.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3980488266",
+    "id" : "25F90533",
+    "lastKnownWriteTime" : 1605379318,
+    "last_content_update" : 1605379318447,
+    "path" : "~/Desktop/Machine_Learning_Algorithms_R/Part 6 - Reinforcement Learning/Section 33 - Thompson Sampling/thompson_sampling.R",
+    "project_path" : "Part 6 - Reinforcement Learning/Section 33 - Thompson Sampling/thompson_sampling.R",
+    "properties" : {
+        "cursorPosition" : "38,15",
+        "scrollLine" : "31",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
