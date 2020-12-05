@@ -59,3 +59,13 @@ corpus = tm_map(corpus, stemDocument)
 # 6. extra spaces -> remove (extra spaces left from removing numbers for example)
 corpus = tm_map(corpus, stripWhitespace)
 
+
+# Creating the sparse matrix (very few non-zero values)
+
+dtm = DocumentTermMatrix(corpus) #dtm = sparse matrix
+
+# filter - the most frequent words from dtm
+dtm = removeSparseTerms(dtm, 0.999) # we want to keep 99.9% of the most frequent words, the smaller the number of reviews -> the bigger the proportion
+
+
+
