@@ -1,5 +1,16 @@
 # Natural Language Processing
 
+# Libraries
+
+# corpus
+install.packages("slam", type = "binary")
+install.packages('tm')
+library(tm)
+
+# stopwords()
+install.packages('SnowballC')
+library(SnowballC)
+
 # Importing the dataset
 
 # get a dataset with columns separated by a tab
@@ -19,15 +30,10 @@ dataset = read.delim('Restaurant_Reviews.tsv',
 # distinct words = columns
 # count the number of times the word goes with which review
 
-install.packages("slam", type = "binary")
-
-install.packages('tm')
-library(tm)
 
 corpus = VCorpus(VectorSource(dataset$Review))  #we won't clean the reviews directly in the dataset - new dataset only for reviews = corpus
 
 # 1. words -> lower cases
-
 #so we don't get two versions of the same word in lower and upper case
 #tm_map - update the corpus
 #content_transformer - transforming function for all the words in the corpus
@@ -35,6 +41,19 @@ corpus = VCorpus(VectorSource(dataset$Review))  #we won't clean the reviews dire
 corpus = tm_map(corpus, content_transformer(tolower))
 
 as.character(corpus[[1]]) #to view the first element of the corpus
+
+# 2. numbers -> remove
+corpus = tm_map(corpus, removeNumbers)
+
+as.character(corpus[[841]]) #review with the number in it
+
+# 3. punctuation -> remove
+corpus = tm_map(corpus, removePunctuation)
+
+# 4. non-relevant words -> remove
+corpus = tm_map(corpus, removeWords, stopwords())
+
+
 
 
 
