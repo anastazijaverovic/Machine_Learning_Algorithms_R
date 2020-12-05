@@ -99,4 +99,4 @@ y_pred = predict(classifier, newdata = test_set[-692])
 # Making the Confusion Matrix
 cm = table(test_set[,692], y_pred)
 
-# Acuraccy = (82+77)/200 = 0.795
+# Accuracy = (82+77)/200 = 0.795
