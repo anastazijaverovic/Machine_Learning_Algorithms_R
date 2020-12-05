@@ -53,7 +53,9 @@ corpus = tm_map(corpus, removePunctuation)
 # 4. non-relevant words -> remove
 corpus = tm_map(corpus, removeWords, stopwords())
 
+# 5. stemming - reduce the total number of words -> getting the root of each word
+corpus = tm_map(corpus, stemDocument)
 
-
-
+# 6. extra spaces -> remove (extra spaces left from removing numbers for example)
+corpus = tm_map(corpus, stripWhitespace)
 
