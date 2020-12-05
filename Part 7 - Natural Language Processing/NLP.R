@@ -11,15 +11,19 @@ library(tm)
 install.packages('SnowballC')
 library(SnowballC)
 
+# splitting the dataset
+library(caTools)
+
+# classification model
+library(randomForest)
+
 # Importing the dataset
 
-# get a dataset with columns separated by a tab
-# a sentence can contain a comma
-
-dataset = read.delim('Restaurant_Reviews.tsv',
+dataset = read.delim('Restaurant_Reviews.tsv', # get a dataset with columns separated by a tab, a sentence can contain a comma
                      quote = '', #ignore quotes in the text
                      stringsAsFactors = FALSE #reviews shouldn't be identified as factors (categorical)
                      )
+
 
 # Cleaning the review texts
 
@@ -35,12 +39,9 @@ corpus = VCorpus(VectorSource(dataset$Review))  #we won't clean the reviews dire
 
 # 1. words -> lower cases
 #so we don't get two versions of the same word in lower and upper case
-#tm_map - update the corpus
-#content_transformer - transforming function for all the words in the corpus
+corpus = tm_map(corpus, content_transformer(tolower)) #content_transformer - transforming function for all the words in the corpus
 
-corpus = tm_map(corpus, content_transformer(tolower))
-
-as.character(corpus[[1]]) #to view the first element of the corpus
+as.character(corpus[[1]]) #view the first element of the corpus
 
 # 2. numbers -> remove
 corpus = tm_map(corpus, removeNumbers)
@@ -60,12 +61,42 @@ corpus = tm_map(corpus, stemDocument)
 corpus = tm_map(corpus, stripWhitespace)
 
 
-# Creating the sparse matrix (very few non-zero values)
+# Creating the Bag of Words model
 
+# sparse matrix (very few non-zero values)
 dtm = DocumentTermMatrix(corpus) #dtm = sparse matrix
 
 # filter - the most frequent words from dtm
 dtm = removeSparseTerms(dtm, 0.999) # we want to keep 99.9% of the most frequent words, the smaller the number of reviews -> the bigger the proportion
 
 
+# Classification model (Naive Bayes/Decision Tree/Random Forest)
+# Random Forest
 
+#dataset is a dataframe, not a matrix
+dataset_cl = as.data.frame(as.matrix(dtm))
+
+#add dependent variable as column
+dataset_cl$Liked = dataset$Liked
+
+# Encoding the tagret feature as a factor
+dataset_cl$Liked = factor(dataset_cl$Liked, levels = c(0,1))
+
+# Splitting the dataset into the Training set and Test set
+set.seed(123)
+split = sample.split(dataset_cl$Liked, SplitRatio = 0.8)
+training_set = subset(dataset_cl, split == TRUE)
+test_set = subset(dataset_cl, split == FALSE)
+
+# Fitting Random Forest Classification to the Training set
+classifier = randomForest(x = training_set[-692], #training set without the dependent variable
+                          y = training_set$Liked,
+                          ntree = 10)
+
+# Predicting the Test set results
+y_pred = predict(classifier, newdata = test_set[-692])
+
+# Making the Confusion Matrix
+cm = table(test_set[,692], y_pred)
+
+# Acuraccy = (82+77)/200 = 0.795
