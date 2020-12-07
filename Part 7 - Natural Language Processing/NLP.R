@@ -89,14 +89,31 @@ training_set = subset(dataset_cl, split == TRUE)
 test_set = subset(dataset_cl, split == FALSE)
 
 # Fitting Random Forest Classification to the Training set
-classifier = randomForest(x = training_set[-692], #training set without the dependent variable
+classifier_rf = randomForest(x = training_set[-692], #training set without the dependent variable
                           y = training_set$Liked,
                           ntree = 10)
 
 # Predicting the Test set results
-y_pred = predict(classifier, newdata = test_set[-692])
+y_pred_rf = predict(classifier_rf, newdata = test_set[-692])
 
 # Making the Confusion Matrix
-cm = table(test_set[,692], y_pred)
+cm_rf = table(test_set[,692], y_pred_rf)
 
-# Accuracy = (82+77)/200 = 0.795
+# Accuracy (Random Forest) = (82+77)/200 = 0.795
+
+# Decision Tree
+
+# Fitting classifier to the Training set
+library(rpart)
+
+#option + N = ~
+classifier_dt = rpart(formula = Liked ~ .,
+                   data = training_set)
+
+# Predicting the Test set results
+y_pred_dt = predict(classifier, newdata = test_set[-692],type = 'class')
+
+# Making the Confusion Matrix
+cm_dt = table(test_set[, 692], y_pred_dt)
+
+# Accuracy (Decision Tree) = (80+78)/200 = 0.79
