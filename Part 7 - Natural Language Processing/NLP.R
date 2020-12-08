@@ -111,9 +111,29 @@ classifier_dt = rpart(formula = Liked ~ .,
                    data = training_set)
 
 # Predicting the Test set results
-y_pred_dt = predict(classifier, newdata = test_set[-692],type = 'class')
+y_pred_dt = predict(classifier_dt, newdata = test_set[-692],type = 'class')
 
 # Making the Confusion Matrix
 cm_dt = table(test_set[, 692], y_pred_dt)
 
-# Accuracy (Decision Tree) = (80+78)/200 = 0.79
+# Accuracy (Decision Tree) = (85+57)/200 = 0.71
+
+# Support Vector Machine
+
+# Fitting classifier to the Training set
+library(e1071)
+
+classifier_svm = svm(formula = Liked ~ .,
+                      data = training_set,
+                     type = 'C-classification',
+                     kernel = 'linear')
+
+# Predicting the Test set results
+y_pred_svm = predict(classifier_svm, newdata = test_set[-692],type = 'class')
+
+# Making the Confusion Matrix
+cm_svm = table(test_set[, 692], y_pred_svm)
+
+# Accuracy (Support Vector Machine) = (78+81)/(78+81+22+19) = 0.795
+
+
