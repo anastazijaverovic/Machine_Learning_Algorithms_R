@@ -136,4 +136,18 @@ cm_svm = table(test_set[, 692], y_pred_svm)
 
 # Accuracy (Support Vector Machine) = (78+81)/(78+81+22+19) = 0.795
 
+# Naive Bayes
+
+library(e1071)
+
+classifier_nb = naiveBayes(x = training_set[-692], #independent variables
+                          y = training_set$Liked) #dependent variable
+
+# Predicting the Test set results
+y_pred_nb = predict(classifier_nb, newdata = test_set[-692])
+
+# Making the Confusion Matrix
+cm_nb = table(test_set[, 692], y_pred_nb)
+
+# Accuracy (Naive Bayes) = (5+96)/200 = 0.505
 
