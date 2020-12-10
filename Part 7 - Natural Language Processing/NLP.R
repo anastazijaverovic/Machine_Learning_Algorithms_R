@@ -70,7 +70,7 @@ dtm = DocumentTermMatrix(corpus) #dtm = sparse matrix
 dtm = removeSparseTerms(dtm, 0.999) # we want to keep 99.9% of the most frequent words, the smaller the number of reviews -> the bigger the proportion
 
 
-# Classification model (Naive Bayes/Decision Tree/Random Forest)
+# Classification model (Naive Bayes/Decision Tree/Random Forest/SVM/KSVM)
 # Random Forest
 
 #dataset is a dataframe, not a matrix
@@ -150,4 +150,20 @@ y_pred_nb = predict(classifier_nb, newdata = test_set[-692])
 cm_nb = table(test_set[, 692], y_pred_nb)
 
 # Accuracy (Naive Bayes) = (5+96)/200 = 0.505
+
+
+# Kernel Support Vector Machine
+
+classifier_ksvm = svm(formula = training_set$Liked ~ .,
+                 data = training_set,
+                 type = 'C-classification',
+                 kernel = 'radial')
+
+# Predicting the Test set results
+y_pred_ksvm = predict(classifier_ksvm, newdata = test_set[-692])
+
+# Making the Confusion Matrix
+cm_ksvm = table(test_set[, 692], y_pred_ksvm)
+
+# Accuracy (Kernel Support Vector Machine) = (100+6)/200 = 0.53
 
